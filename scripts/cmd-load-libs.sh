@@ -2,18 +2,16 @@
 
 set -e
 
-input="./libs.txt"
-
 lib_load() {
     echo "Loading libraries..."
     while IFS= read -r lib
     do
-      echo "$lib"
       if [[ "$lib" != "---START---" && "$lib" != "---END---" ]]; then
+        echo "Loading $lib"
         R --no-echo --no-restore --no-save -e "library($lib)"
       fi
 
-    done < "$input"
+    done < "$1"
 }
 
-lib_load
+lib_load "$1"

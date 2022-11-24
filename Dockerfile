@@ -61,7 +61,7 @@ RUN R --no-echo --no-restore --no-save -e "remotes::install_github('mojaveazure/
 # Load Libraries
 COPY ./scripts/cmd-load-libs.sh ./libs.txt ./tmp/
 RUN chmod +x ./tmp/cmd-load-libs.sh
-# RUN /bin/bash ./tmp/cmd-load-libs.sh
+RUN /bin/bash ./tmp/cmd-load-libs.sh ./tmp/libs.txt
 
 # COPY user-settings /home/rstudio/.rstudio/monitored/user-settings/user-settings
 COPY .Rprofile /home/rstudio/

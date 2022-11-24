@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  # Nginx
+  nginx:
+    container_name: nginx-rocker
+    build:
+      dockerfile: ./config/nginx/Dockerfile
+    ports:
+      - '10443:10443'
+    restart: on-failure
+    networks:
+      - gateway
+    depends_on:
+      - rstudio
+  # RStudio
+  rstudio:
+    container_name: rstudio
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - "8787:8787"
+    restart: on-failure
+    environment:
+      PASSWORD: 12345
+      DISABLE_AUTH: true
+      ROOT: true
+      USERID: 1001
+      GROUPID: 1001
+    volumes:
+      - ./.rstudio_config:/home/rstudio/.config/rstudio
+      - ./workspace/:/home/rstudio/workspace/
+      - ./packages:/packages
+    networks:
+      - gateway
+networks:
+  gateway: {}
+

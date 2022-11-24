@@ -1,0 +1,6 @@
+{
+    "initial_working_directory": "~/workspace",
+    "posix_terminal_shell": "bash",
+    "editor_theme": "SQL Server",
+    "font_size_points": 12
+}

@@ -58,6 +58,11 @@ RUN R --no-echo --no-restore --no-save -e "install.packages('Seurat')"
 # Install SeuratDisk
 RUN R --no-echo --no-restore --no-save -e "remotes::install_github('mojaveazure/seurat-disk')"
 
+# Load Libraries
+COPY ./scripts/cmd-load-libs.sh ./libs.txt ./tmp/
+RUN chmod +x ./tmp/cmd-load-libs.sh
+# RUN /bin/bash ./tmp/cmd-load-libs.sh
+
 # COPY user-settings /home/rstudio/.rstudio/monitored/user-settings/user-settings
 COPY .Rprofile /home/rstudio/
 

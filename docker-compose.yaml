@@ -30,7 +30,7 @@ services:
     volumes:
       - ./.rstudio_config:/home/rstudio/.config/rstudio
       - ./workspace/:/home/rstudio/workspace/
-      - ./packages:/packages
+      # - ./packages:/usr/local/lib/R/site-library
     networks:
       - gateway
 networks:

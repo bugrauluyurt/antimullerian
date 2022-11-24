@@ -41,9 +41,14 @@ RUN pip3 install umap-learn
 RUN git clone --branch v1.2.1 https://github.com/KlugerLab/FIt-SNE.git
 RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/nbodyfft.cpp  -o bin/fast_tsne -pthread -lfftw3 -lm
 
-# Install bioconductor dependencies & suggests
+# Install bioconductor
 RUN R --no-echo --no-restore --no-save -e "install.packages('BiocManager')"
+
+# Install bioconductor seurat dependencies & suggests
 RUN R --no-echo --no-restore --no-save -e "BiocManager::install(c('multtest', 'S4Vectors', 'SummarizedExperiment', 'SingleCellExperiment', 'MAST', 'DESeq2', 'BiocGenerics', 'GenomicRanges', 'IRanges', 'rtracklayer', 'monocle', 'Biobase', 'limma', 'glmGamPoi'))"
+
+# Install bioconductor monocle3 dependencies & suggests
+RUN R --no-echo --no-restore --no-save -e "BiocManager::install(c('DelayedArray', 'DelayedMatrixStats', 'lme4', 'batchelor', 'HDF5Array', 'terra', 'ggrastr'))"
 
 # Install CRAN suggests
 RUN R --no-echo --no-restore --no-save -e "install.packages(c('VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools'))"
@@ -57,6 +62,10 @@ RUN R --no-echo --no-restore --no-save -e "install.packages('Seurat')"
 
 # Install SeuratDisk
 RUN R --no-echo --no-restore --no-save -e "remotes::install_github('mojaveazure/seurat-disk')"
+
+# Install Monocle3
+RUN R --no-echo --no-restore --no-save -e "install.packages('devtools')"
+RUN R --no-echo --no-restore --no-save -e "devtools::install_github('cole-trapnell-lab/monocle3')"
 
 # Load Libraries
 COPY ./scripts/cmd-load-libs.sh ./libs.txt ./tmp/

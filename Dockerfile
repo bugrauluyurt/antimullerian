@@ -65,7 +65,8 @@ RUN R --no-echo --no-restore --no-save -e "remotes::install_github('mojaveazure/
 
 # Install Monocle3
 RUN R --no-echo --no-restore --no-save -e "install.packages('devtools')"
-RUN R --no-echo --no-restore --no-save -e "devtools::install_github('cole-trapnell-lab/monocle3')"
+# @TODO: Fix the class not found error
+# RUN R --no-echo --no-restore --no-save -e "devtools::install_github('cole-trapnell-lab/monocle3')"
 
 # Load Libraries
 COPY ./scripts/cmd-load-libs.sh ./libs.txt ./tmp/
